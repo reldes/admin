@@ -7,8 +7,10 @@ function request(method: string) {
         /* eslint-disable @typescript-eslint/no-explicit-any */
         const requestOptions: any = {
             method,
+          
             headers: authHeader()
         };
+        requestOptions.headers['Accept'] = 'application/json';
         if (body) {
             requestOptions.headers['Content-Type'] = 'application/json';
             requestOptions.body = JSON.stringify(body);

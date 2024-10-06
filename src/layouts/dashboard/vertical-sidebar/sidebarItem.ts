@@ -2,7 +2,6 @@
 import {
   DashboardOutlined,
 } from '@ant-design/icons-vue';
-import api from '@/utils/helpers/api/api';
 
 export interface menu {
   header?: string;
@@ -27,21 +26,15 @@ const sidebarItem: menu[] = [
     icon: DashboardOutlined,
     to: '/dashboard'
   },
+  {
+    title: 'Experiments',
+    to: '/experiments'
+  },
 ];
 
 async function getSidebarItems(): Promise<menu[]> {
-  const experiments = await api.experiment.getExperiments();
-  console.log('items', experiments);
-  const experimentItems = experiments ? experiments.map(experiment => ({
-    title: experiment.title,
-    // icon: ExperimentOutlined, // Replace with an appropriate icon
-    to: `/experiments/${experiment.id}`
-  })): [];
-
   return [
     ...sidebarItem,
-    { header: 'Experiments' },
-    ...experimentItems
   ];
 }
 

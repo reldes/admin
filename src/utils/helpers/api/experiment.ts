@@ -11,9 +11,12 @@ interface Experiment {
 
 export default {
   getExperiments(): Promise<Experiment[]> {
-    return request.get('experiments').then(response => response.data);
+    return request.get('experiments');
   },
   getExperiment(id: number): Promise<Experiment> {
-    return request.get(`experiments/${id}`).then(response => response.data);
+    return request.get(`experiments/${id}`);
+  },
+  createExperiment(data: Experiment): Promise<Experiment> {
+    return request.post('experiments', data);
   },
 };

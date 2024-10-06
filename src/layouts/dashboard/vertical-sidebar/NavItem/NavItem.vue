@@ -1,21 +1,28 @@
-<script setup>
-const props = defineProps({ item: Object, level: Number });
+<script lang="ts">
+import { defineComponent, computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+export default defineComponent({
+  props: {
+    item: {
+      type: Object,
+      required: true
+    },
+    level: {
+      type: Number,
+      required: false
+    }
+  }
+});
 </script>
 
 <template>
-  <!---Single Item-->
-  <v-list-item
-    :to="item.type === 'external' ? '' : item.to"
-    :href="item.type === 'external' ? item.to : ''"
-    rounded
-    class="mb-1"
-    color="primary"
-    :disabled="item.disabled"
-    :target="item.type === 'external' ? '_blank' : ''"
-  >
+
+  <v-list-item :to="item.type === 'external' ? '' : item.to" :href="item.type === 'external' ? item.to : ''" rounded
+    :class="'mb-1'" color="primary" :disabled="item.disabled" :target="item.type === 'external' ? '_blank' : ''">
     <!---If icon-->
     <template v-slot:prepend>
-      <component :is="props.item.icon" class="iconClass" :level="props.level"></component>
+      <component :is="item.icon" class="iconClass" :level="level"></component>
     </template>
     <v-list-item-title>{{ $t(item.title) }}</v-list-item-title>
     <!---If Caption-->
@@ -24,16 +31,12 @@ const props = defineProps({ item: Object, level: Number });
     </v-list-item-subtitle>
     <!---If any chip or label-->
     <template v-slot:append v-if="item.chip">
-      <v-chip
-        label
-        :color="item.chipColor"
-        class="sidebarchip hide-menu"
-        size="small"
-        :variant="item.chipVariant"
-        :prepend-icon="item.chipIcon"
-      >
+      <v-chip label :color="item.chipColor" class="sidebarchip hide-menu" size="small" :variant="item.chipVariant"
+        :prepend-icon="item.chipIcon">
         {{ item.chip }}
       </v-chip>
     </template>
   </v-list-item>
+
+  <!---Single Item-->
 </template>
