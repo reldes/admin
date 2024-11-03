@@ -1,0 +1,53 @@
+name: Deploy to production
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm install || yarn install
+
+      - name: Build Vuetify
+        run: npm run build-prod  # Replace with your build command (e.g., yarn build:dist)
+
+      - name: Deploy
+        uses: actions/upload-artifact@v3
+        with:
+          name: vuetify-dist
+          path: dist
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' 
+    environment:  
+      name: production 
+      url: https://openlab.org.ua  
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: vuetify-dist
+      - name: List contents of downloaded artifact
+        run: |
+          ls ./
+      - name: Deploy to production 
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: ubuntu
+          server: ${{ secrets.SERVER_HOST }}
+          port: 22
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          sftp_only: true
+          local_path: ./
+          remote_path: /var/www/html/admin
+          delete_remote_files: true
+
+      # - name: Run deployment script (optional)
+      #   run: |  # Optional script to run commands on the server after deployment
+      #     bash deploy.sh
+
