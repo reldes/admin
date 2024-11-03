@@ -9,6 +9,7 @@ import VueTablerIcons from 'vue-tabler-icons';
 import VueApexCharts from 'vue3-apexcharts';
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/reset.css';
+import { CkeditorPlugin } from '@ckeditor/ckeditor5-vue';
 
 // google-fonts
 import '@fontsource/public-sans/400.css';
@@ -32,6 +33,7 @@ app.use(router);
 app.use(PerfectScrollbar);
 app.use(createPinia());
 app.use(VueTablerIcons);
+app.use(CkeditorPlugin);
 app.use(Antd);
 app.use(i18n);
 app.use(VueApexCharts);

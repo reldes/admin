@@ -3,18 +3,20 @@ import { useAuthStore } from '@/stores/auth';
 const baseUrl = `${import.meta.env.VITE_RELDES_API_URL}`;
 
 function request(method: string) {
-    return (url: string, body?: object) => {
+    return (url: string, body?: object|FormData) => {
         /* eslint-disable @typescript-eslint/no-explicit-any */
         const requestOptions: any = {
             method,
-          
             headers: authHeader()
         };
         requestOptions.headers['Accept'] = 'application/json';
-        if (body) {
-            requestOptions.headers['Content-Type'] = 'application/json';
+        if (body instanceof FormData) {
+            requestOptions.body = body;
+        } else {
             requestOptions.body = JSON.stringify(body);
+            requestOptions.headers['Content-Type'] = 'application/json';
         }
+        
         return fetch(`${baseUrl}/api/${url}`, requestOptions).then(handleResponse);
     };
 }

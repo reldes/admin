@@ -22,13 +22,12 @@ export interface menu {
 const sidebarItem: menu[] = [
   { header: 'Navigation' },
   {
-    title: 'Dashboard',
-    icon: DashboardOutlined,
-    to: '/dashboard'
-  },
-  {
     title: 'Experiments',
     to: '/experiments'
+  },
+  {
+    title: 'Templates',
+    to: '/templates'
   },
 ];
 
