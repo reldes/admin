@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <RouterLink to="/" aria-label="logo">
-       <img src="@/assets/images/landing/ol-icon.png" alt="logo" width="50px" />
+       <img src="@/assets/images/landing/ol-icon.png" alt="logo" />
        <span>OpenLab</span>
     </RouterLink>
   </div>
@@ -9,8 +9,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
-const primary = ref('rgb(var(--v-theme-primary))');
-const darkprimary = ref('rgb(var(--v-theme-darkprimary))');
+
 </script>
 <style scoped lang="scss">
 .logo {
@@ -21,6 +20,7 @@ const darkprimary = ref('rgb(var(--v-theme-darkprimary))');
   font-weight: 600;
   img {
     margin-right: 10px;
+    width: 50px;
   }
   a {
     text-decoration: none;
