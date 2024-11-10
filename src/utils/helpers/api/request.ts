@@ -21,6 +21,7 @@ function request(method: string) {
     };
 }
 
+
 function authHeader() {
     const { token } = useAuthStore();
     const isLoggedIn = token;
