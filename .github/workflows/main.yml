@@ -27,7 +27,7 @@ jobs:
     if: github.ref == 'refs/heads/main' 
     environment:  
       name: production 
-      url: https://openlab.org.ua  
+      url: https://admin.openlab.org.ua  
     steps:
       - uses: actions/download-artifact@v3
         with:
